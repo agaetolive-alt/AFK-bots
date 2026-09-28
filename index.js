@@ -11,7 +11,14 @@ function createBot() {
 
   bot.on('spawn', () => {
     console.log('Bot spawned!')
-    setTimeout(()=> bot.chat('/login 5101520'), 3000)
+    setTimeout(()=> {
+      bot.chat('/login 5101520')
+      console.log('Sent login')
+      setTimeout(()=> {
+        bot.chat('/server economy')
+        console.log('Sent to economy')
+      }, 3000)
+    }, 3000)
   })
 
   bot.on('chat', (username, message) => {
