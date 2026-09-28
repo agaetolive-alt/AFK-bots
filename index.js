@@ -21,18 +21,19 @@ function createBot() {
     }, 3000)
   })
 
-  bot.on('messagestr', (message) => {
+    bot.on('messagestr', (message) => {
     console.log('ChatMsg:', message)
     const msg = message.toLowerCase()
-    // auto accept tpahere from you
-    if (msg.includes('ITzRouk23') && msg.includes('tpahere') || msg.includes('has requested to teleport') || msg.includes('tpahere')) {
-      setTimeout(() => {
-        bot.chat('/tpaccept')
-        console.log('Sent /tpaccept')
-      }, 2000)
+    if (msg.includes('teleport') && msg.includes('itzrouk23')) {
+      console.log('TPA from you detected, accepting...')
+      bot.chat('/tpaccept')
+      setTimeout(() => bot.chat('/tpaccept'), 1500)
     }
-  })
-
+    else if (msg.includes('to teleport, type /tpaccept')) {
+      console.log('Generic TPA detected, accepting...')
+      bot.chat('/tpaccept')
+    }
+  }
   bot.on('error', (err) => console.log('Error:', err.message))
   bot.on('kicked', (reason) => console.log('Kicked:', reason))
   bot.on('end', () => {
