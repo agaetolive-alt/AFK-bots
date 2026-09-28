@@ -24,13 +24,10 @@ function createBot() {
   bot.on('messagestr', (message) => {
     console.log('ChatMsg:', message)
     const msg = message.toLowerCase()
-    if (msg.includes('teleport') && msg.includes('itzrouk23')) {
-      console.log('TPA from you detected, accepting...')
+    if (msg.includes('re uested')) {
+      console.log('TPA detected, accepting...')
       bot.chat('/tpaccept')
       setTimeout(() => bot.chat('/tpaccept'), 1500)
-    } else if (msg.includes('to teleport, type /tpaccept')) {
-      console.log('Generic TPA detected, accepting...')
-      bot.chat('/tpaccept')
     }
   })
 
