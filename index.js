@@ -4,7 +4,7 @@ const mineflayer = require('mineflayer')
 function createBot() {
   const bot = mineflayer.createBot({
     host: 'helixnetwork.in',
-    username: 'Rouk23',
+    username: 'Rouk_23',
     auth: 'offline',
     version: false
   })
@@ -14,7 +14,6 @@ function createBot() {
     setTimeout(() => {
       bot.chat('/login 5101520')
       console.log('Sent login')
-      
       setTimeout(() => {
         bot.chat('/server economy')
         console.log('Sent /server economy after 10s')
@@ -22,9 +21,15 @@ function createBot() {
     }, 3000)
   })
 
-  bot.on('chat', (username, message) => {
-    if (username === 'ITZROUK23' && message.toLowerCase().includes('tpa')) {
-      bot.chat('/tpaccept')
+  bot.on('messagestr', (message) => {
+    console.log('ChatMsg:', message)
+    const msg = message.toLowerCase()
+    // auto accept tpahere from you
+    if (msg.includes('ITzRouk23') && msg.includes('tpahere') || msg.includes('has requested to teleport') || msg.includes('tpahere')) {
+      setTimeout(() => {
+        bot.chat('/tpaccept')
+        console.log('Sent /tpaccept')
+      }, 2000)
     }
   })
 
