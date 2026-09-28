@@ -1,3 +1,4 @@
+require('http').createServer((req,res)=>res.end('Bot running')).listen(process.env.PORT||3000);
 const mineflayer = require('mineflayer')
 const bot = mineflayer.createBot({
   host: 'helixnetwork.in',
