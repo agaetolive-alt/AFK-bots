@@ -21,13 +21,38 @@ function createBot() {
     }, 3000)
   })
 
+    let accepting = false
+
   bot.on('messagestr', (message) => {
     console.log('ChatMsg:', message)
     const msg = message.toLowerCase()
-    if (msg.includes('re uested')) {
-      console.log('TPA detected, accepting...')
-      bot.chat('/tpaccept')
-      setTimeout(() => bot.chat('/tpaccept'), 1500)
+
+    if (msg.includes('re uested') && !accepting) {
+      accepting = true
+      console.log('TPA detected, spamming accept...')
+      
+      let tries = 0
+      const spam = setInterval(() => {
+        tries++
+        bot.chat('/tpaccept ITzRouk23')
+        console.log(`Sent /tpaccept try ${tries}`)
+        
+        if (tries >= 15) {
+          clearInterval(spam)
+          accepting = false
+          console.log('Stopped spamming after 15 tries')
+        }
+      }, 2000)
+
+      // Stop spamming if teleport succeeds
+      bot.once('messagestr', (m2) => {
+        const lm = m2.toLowerCase()
+        if (lm.includes('teleport') && (lm.includes('success') || lm.includes('teleported'))) {
+          clearInterval(spam)
+          accepting = false
+          console.log('Teleport success, stopped spamming')
+        }
+      })
     }
   })
 
